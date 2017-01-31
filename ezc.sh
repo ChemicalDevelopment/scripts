@@ -1,5 +1,5 @@
 #!/bin/bash
-RELEASE="1.2.2"
+RELEASE="1.2.3"
 
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	TYPE="linux"
