@@ -1,13 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 RELEASE="1.2.3"
 
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+UNAMESTR=`uname`
+
+if [ "$UNAMESTR" = "Linux" ]; then
 	TYPE="linux"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
+elif [ "$UNAMESTR" = "darwin"* ]; then
 	TYPE="mac"
-elif [[ "$OSTYPE" == *"BSD" ]]; then
+elif [ "$UNAMESTR" = *"BSD" ]; then
 	TYPE="bsd"
-elif [ "$OSTYPE" == "cygwin" ] || [ "$OSTYPE" == "msys" ]; then
+elif [ "$UNAMESTR" = "cygwin" ] || [ "$UNAMESTR" = "msys" ]; then
 	TYPE="build"
 else
 	TYPE="build"
@@ -15,7 +17,7 @@ fi
 
 echo "Installing for $TYPE system"
 
-if [[ "$TYPE" == "build" ]]; then
+if [ "$TYPE" = "build" ]; then
 	curl chemdev.space/build-ezc.sh -L | bash
 else
 	ARCHIVE="https://github.com/ChemicalDevelopment/ezc/releases/download/$RELEASE/ezc-$TYPE.tar.xz"
