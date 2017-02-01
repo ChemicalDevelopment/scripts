@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/sh
 printf "ChemicalDevelopment scripts. Hello!"
