@@ -16,6 +16,9 @@ esac
 TYPE="build"
 
 echo "Installing for $TYPE system"
+
+#USE_GIT="true"
+
 LOCATION=~/.ezc/
 BUILD_DIR=$LOCATION/REPO
 PROFILE=~/.bashrc
@@ -26,19 +29,23 @@ cd ${LOCATION}
 echo "${PROFILE_RELOAD}" >> ${PROFILE}
 
 if [ "$TYPE" = "build" ]; then
-	ARCHIVE="https://github.com/ChemicalDevelopment/ezc/archive/$RELEASE.tar.gz"
-	echo "Using $ARCHIVE"
 	mkdir -p $BUILD_DIR
-	pushd $BUILD_DIR
-	curl $ARCHIVE -L > ezc.tar.gz
-	tar -xvzf ezc.tar.gz
-
-	cd ezc-*
+	cd $BUILD_DIR
+	if [ "$USE_GIT" = "true" ]; then 
+		git clone https://github.com/ChemicalDevelopment/ezc.git
+		cd ezc
+	else
+		ARCHIVE="https://github.com/ChemicalDevelopment/ezc/archive/$RELEASE.tar.gz"
+		echo "Using $ARCHIVE"
+			curl $ARCHIVE -L > ezc.tar.gz
+		tar -xvzf ezc.tar.gz
+		cd ezc-*
+	fi
 
 	make DIR=$LOCATION
 	rm ezc.tar.gz
 
-	popd
+	cd $LOCATION
 	rm -rf $BUILD_DIR
 else
 	ARCHIVE="https://github.com/ChemicalDevelopment/ezc/releases/download/$RELEASE/ezc-$TYPE.tar.xz"
