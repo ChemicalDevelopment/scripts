@@ -49,6 +49,8 @@ mkdir -p ${LOCATION}
 cd ${LOCATION}
 
 echo "${PATHFILE_RELOAD}" >> ${PATHFILE}
+sh -c "${PATHFILE_RELOAD}"
+
 
 if [ "$PLATFORM" = "build" ]; then
 	mkdir -p $BUILD_DIR
