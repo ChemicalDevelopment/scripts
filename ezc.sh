@@ -1,8 +1,15 @@
 #!/bin/sh
 #RELEASE="master"
 
+echo "You entered:"
+echo "  RELEASE: $RELEASE"
+echo "  PROFILE: $PROFILE"
+echo "  LOCATION: $LOCATION"
+echo "  TYPE: $TYPE"
+echo ""
+
 if [ "$RELEASE" = "" ]; then
-	RELEASE="1.2.3"
+	RELEASE="master"
 fi
 
 if [ "$RELEASE" = "dev" ]; then
@@ -29,7 +36,12 @@ if [ "$TYPE" = "" ]; then
 	esac
 fi
 
-echo "Installing for $TYPE system"
+echo "Actually using:"
+echo "  RELEASE: $RELEASE"
+echo "  PROFILE: $PROFILE"
+echo "  LOCATION: $LOCATION"
+echo "  TYPE: $TYPE"
+echo ""
 
 BUILD_DIR=$LOCATION/REPO
 PROFILE_RELOAD="export PATH=\$PATH:${LOCATION}"
@@ -44,7 +56,7 @@ if [ "$TYPE" = "build" ]; then
 	if [ "$USE_GIT" = "" ]; then 
 		ARCHIVE="https://github.com/ChemicalDevelopment/ezc/archive/$RELEASE.tar.gz"
 		echo "Using $ARCHIVE"
-			curl $ARCHIVE -L > ezc.tar.gz
+		curl $ARCHIVE -L > ezc.tar.gz
 		tar -xzf ezc.tar.gz
 		cd ezc-*
 	else
@@ -69,3 +81,4 @@ else
 
 	rm ezc.tar.xz
 fi
+
