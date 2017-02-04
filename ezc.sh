@@ -1,61 +1,60 @@
 #!/bin/sh
-#RELEASE="master"
 
 echo "You entered:"
-echo "  RELEASE: $RELEASE"
-echo "  PROFILE: $PROFILE"
+echo "  VERSION: $VERSION"
+echo "  PATHFILE: $PATHFILE"
 echo "  LOCATION: $LOCATION"
-echo "  TYPE: $TYPE"
+echo "  PLATFORM: $PLATFORM"
 echo ""
 
-if [ "$RELEASE" = "" ]; then
-	RELEASE="1.3.1"
+if [ "$VERSION" = "" ]; then
+	VERSION="1.3.1"
 fi
 
-if [ "$RELEASE" = "dev" ]; then
-	RELEASE="master"
-	TYPE="build"
+if [ "$VERSION" = "dev" ]; then
+	VERSION="master"
+	PLATFORM="build"
 fi
 
-if [ "$PROFILE" = "" ]; then
-	PROFILE=~/.bashrc
+if [ "$PATHFILE" = "" ]; then
+	PATHFILE=~/.bashrc
 fi
 if [ "$LOCATION" = "" ]; then
 	LOCATION=~/.ezc/
 fi
 
-if [ "$TYPE" = "" ]; then
+if [ "$PLATFORM" = "" ]; then
 	UNAMESTR=$(uname)
 
 	echo $UNAMESTR
 
 	case "$UNAMESTR" in
-		"Linux") TYPE="linux";;
-		"darwin"*) TYPE="mac";;
-		*"BSD") TYPE="bsd";;
-		*) TYPE="build";;
+		"Linux") PLATFORM="linux";;
+		"darwin"*) PLATFORM="mac";;
+		*"BSD") PLATFORM="bsd";;
+		*) PLATFORM="build";;
 	esac
 fi
 
 echo "Actually using:"
-echo "  RELEASE: $RELEASE"
-echo "  PROFILE: $PROFILE"
+echo "  VERSION: $VERSION"
+echo "  PATHFILE: $PATHFILE"
 echo "  LOCATION: $LOCATION"
-echo "  TYPE: $TYPE"
+echo "  PLATFORM: $PLATFORM"
 echo ""
 
 BUILD_DIR=$LOCATION/REPO
-PROFILE_RELOAD="export PATH=\$PATH:${LOCATION}"
+PATHFILE_RELOAD="export PATH=\$PATH:${LOCATION}"
 mkdir -p ${LOCATION}
 cd ${LOCATION}
 
-echo "${PROFILE_RELOAD}" >> ${PROFILE}
+echo "${PATHFILE_RELOAD}" >> ${PATHFILE}
 
-if [ "$TYPE" = "build" ]; then
+if [ "$PLATFORM" = "build" ]; then
 	mkdir -p $BUILD_DIR
 	cd $BUILD_DIR
 	if [ "$USE_GIT" = "" ]; then 
-		ARCHIVE="https://github.com/ChemicalDevelopment/ezc/archive/$RELEASE.tar.gz"
+		ARCHIVE="https://github.com/ChemicalDevelopment/ezc/archive/$VERSION.tar.gz"
 		echo "Using $ARCHIVE"
 		curl $ARCHIVE -L > ezc.tar.gz
 		tar -xzf ezc.tar.gz
@@ -63,8 +62,8 @@ if [ "$TYPE" = "build" ]; then
 	else
 		git clone https://github.com/ChemicalDevelopment/ezc.git
 		cd ezc
-		if [ "$RELEASE" != "master" ]; then
-			git checkout tags/$RELEASE
+		if [ "$VERSION" != "master" ]; then
+			git checkout tags/$VERSION
 		fi
 	fi
 
@@ -74,7 +73,7 @@ if [ "$TYPE" = "build" ]; then
 	cd $LOCATION
 	rm -rf $BUILD_DIR
 else
-	ARCHIVE="https://github.com/ChemicalDevelopment/ezc/releases/download/$RELEASE/ezc-$TYPE.tar.xz"
+	ARCHIVE="https://github.com/ChemicalDevelopment/ezc/releases/download/$VERSION/ezc-$PLATFORM.tar.xz"
 	echo "Using $ARCHIVE"
 	
 	curl $ARCHIVE -L > ezc.tar.xz
