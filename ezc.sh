@@ -9,11 +9,12 @@ echo "  TYPE: $TYPE"
 echo ""
 
 if [ "$RELEASE" = "" ]; then
-	RELEASE="master"
+	RELEASE="1.3.1"
 fi
 
 if [ "$RELEASE" = "dev" ]; then
 	RELEASE="master"
+	TYPE="build"
 fi
 
 if [ "$PROFILE" = "" ]; then
