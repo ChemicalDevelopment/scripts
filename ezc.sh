@@ -24,13 +24,13 @@ if [ "$LOCATION" = "" ]; then
 fi
 
 if [ "$PLATFORM" = "" ]; then
-	UNAMESTR=$(uname)
+	UNAMESTR=$(uname -s)
 
 	echo $UNAMESTR
 
 	case "$UNAMESTR" in
 		"Linux") PLATFORM="linux";;
-		"darwin"*) PLATFORM="mac";;
+		"Darwin") PLATFORM="mac";;
 		*"BSD") PLATFORM="bsd";;
 		*) PLATFORM="build";;
 	esac
