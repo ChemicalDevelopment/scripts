@@ -19,6 +19,7 @@ fi
 if [ "$PATHFILE" = "" ]; then
 	PATHFILE=~/.bashrc
 fi
+
 if [ "$LOCATION" = "" ]; then
 	LOCATION=~/.ezc/
 fi
