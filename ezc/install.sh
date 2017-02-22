@@ -33,7 +33,7 @@ echo "  PLATFORM: $PLATFORM"
 echo ""
 
 if [ "$VERSION" = "" ]; then
-	VERSION="1.3.1"
+	VERSION="1.4.1"
 fi
 
 if [ "$VERSION" = "dev" ]; then
