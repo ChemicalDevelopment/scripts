@@ -61,7 +61,7 @@ if [ "$PLATFORM" = "" ]; then
 		*"BSD") PLATFORM="bsd";;
 		*) PLATFORM="build";;
 	esac
-	PLATFORM="${PLATFORM}_${ARCHSTR}"
+	PLATFORM="${PLATFORM}-${ARCHSTR}"
 fi
 
 echo "Actually using:"
