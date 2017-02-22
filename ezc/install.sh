@@ -1,5 +1,30 @@
 #!/bin/sh
 
+###
+# ChemicalDevelopment c 2017.
+#
+# This install script, and the program it is installing, is free software, licensed under the GPLv3.
+# You are free to copy, modify, redistribute, and all everything else permitted under the GPLv3.
+#
+# EZC POSIX Install Script
+#
+# Meant to work with /bin/sh, or any other POSIX compliant shell.
+# Tools needed:
+#   python - included with bundled versions (for BSD)
+#   cc - any full style C compiler. tcc will work for built versions, however, a full C compiler is needed for GMP/MPFR
+#        also, macOS bundled versions include tcc
+#   basic utils - shell utilities, realpath, curl, tar, etc. Should come with BSD/macOS/Linux
+#
+# Running:
+#   To install default, download this script (located at chemdev.space/ezc/install.sh), and then run with sh:
+#   `sh install.sh`
+#
+#   However, you can also set where to install to. see http://chemicaldevelopment.us/ezc/#/installing for more
+#
+###
+
+
+
 echo "You entered:"
 echo "  VERSION: $VERSION"
 echo "  PATHFILE: $PATHFILE"
@@ -26,6 +51,7 @@ fi
 
 if [ "$PLATFORM" = "" ]; then
 	UNAMESTR=$(uname -s)
+	ARCHSTR=$(uname -m)
 
 	echo $UNAMESTR
 
@@ -35,6 +61,7 @@ if [ "$PLATFORM" = "" ]; then
 		*"BSD") PLATFORM="bsd";;
 		*) PLATFORM="build";;
 	esac
+	PLATFORM="${PLATFORM}_${ARCHSTR}"
 fi
 
 echo "Actually using:"
